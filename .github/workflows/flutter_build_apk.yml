@@ -7,10 +7,10 @@ on:
         description: "ID job dari Telegram"
         required: true
       zip_path:
-        description: "Path zip di repo (mis: uploads/xxx.zip). Kosongkan jika pakai zip_url"
+        description: "Path zip di repo (mis: uploads/xxx.zip). Kosongkan jika pakai .zip"
         required: false
         default: ""
-      zip_url:
+      .zip:
         description: "Direct URL zip. Kosongkan jika pakai zip_path"
         required: false
         default: ""
@@ -41,14 +41,14 @@ jobs:
           mkdir -p work
           cd work
 
-          if [ -n "${{ inputs.zip_url }}" ]; then
-            echo "MODE: zip_url"
-            curl -L --fail --retry 3 --retry-delay 2 "${{ inputs.zip_url }}" -o project.zip
+          if [ -n "${{ inputs..zip }}" ]; then
+            echo "MODE: .zip"
+            curl -L --fail --retry 3 --retry-delay 2 "${{ inputs..zip }}" -o project.zip
           elif [ -n "${{ inputs.zip_path }}" ]; then
             echo "MODE: zip_path"
             cp "../${{ inputs.zip_path }}" project.zip
           else
-            echo "ERROR: zip_url atau zip_path wajib diisi."
+            echo "ERROR: .zip atau zip_path wajib diisi."
             exit 1
           fi
 
